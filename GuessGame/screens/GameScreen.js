@@ -48,7 +48,7 @@ export default function GameScreen({ name, guess,onEndGame, modalVisible ,goalNu
             <>
               <Text>Hello {name}, You have chosen {guess}. That's not my number! Guess {hint}! You have {chanceNumber} attempts left!</Text>
               <Button title='I am done' onPress={() => onEndGame(true)} />
-              <Button title="Let me Guess Again" onPress={() => {/* back to the start screen and keep shown the pre guess number*/}} />
+              <Button title="Let me Guess Again" onPress={() => {onNewGuess}} />
             </>
           )}
         </Card>
