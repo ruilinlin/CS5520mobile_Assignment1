@@ -3,7 +3,7 @@ import { Button, SafeAreaView, StyleSheet, Text, View,CheckBox  } from 'react-na
 import header from "./Header";
 import card from "./Card";
 
-export default function App() {
+export default function StartScreen() {
   const pageOne = "Guess My Number";
   const pageThree = "Game is Over";
   
