@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import Card from './components/Card';
 
-export default function GameScreen({ name, guess, wonState,modalVisible ,goalNumber}) {
+export default function GameScreen({ name, guess,onEndGame, modalVisible ,goalNumber}) {
   const [isCorrectGuess, setIsCorrectGuess] = useState(false);
   const [chanceNumber,setChanceNumber] = useState(2);
 
@@ -14,6 +14,10 @@ export default function GameScreen({ name, guess, wonState,modalVisible ,goalNum
     }
   };
 
+//keep track the gues number change
+  React.useEffect(() =>{
+    evaluateGuess();
+  },[guess]);
 
   function giveHint(){
     if (guess < goalNumber){
@@ -21,33 +25,37 @@ export default function GameScreen({ name, guess, wonState,modalVisible ,goalNum
     }else if(guess > goalNumber){
       hint = "lower";
     }
-
   }
 
+// let hint = guess < goalNumber ? 'higher' : 'lower';
+/*
   function endGame(){
     const onEndGame = true;
   }
+*/
 
-  function guessAgain(){
-    if (chanceNumber > 0){
-      setChanceNumber(chanceNumber - 1);
-    }else{
-      endGame(false);
-    }
-  }
-  
 
-  return(
-    <modal visible = {modalVisible} >
-    <View>
-      <Text>Hello {name} You have chosen {guess} That's not my number! Guess {giveHint}! You have {chanceNumber} attempts left!</Text>
-    </View>
-    <Button title='I am done' onPress={endGame}/>
-    <Button title = "Let me Guess Again" onpress={guessAgain}/>
-    </modal>
-  )
-  };
-
+  return (
+    <Modal visible={modalVisible} animationType="slide">
+      <View style={styles.screen}>
+        <Card style={styles.card}>
+          {isCorrectGuess ? (
+            <>
+              <Text>Congratulations {name}, you have guessed the number correctly!</Text>
+              <Button title="Thank you" onPress={() => onEndGame(true)} />
+            </>
+          ) : (
+            <>
+              <Text>Hello {name}, you have chosen {guess}. That's not my number! Guess {hint}! You have {chanceNumber} attempts left!</Text>
+              <Button title='I am done' onPress={() => onEndGame(true)} />
+              <Button title="Let me Guess Again" onPress={() => {/* back to the start screen and keep shown the pre guess number*/}} />
+            </>
+          )}
+        </Card>
+      </View>
+    </Modal>
+  );
+}
 
 
   const styles = StyleSheet.create({
