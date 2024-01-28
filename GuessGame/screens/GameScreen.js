@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import React, { useState ,useEffect} from 'react';
+import { View, Text, StyleSheet, Button, Modal } from 'react-native';
 import Card from './components/Card';
 
 export default function GameScreen({ name, guess,onEndGame, modalVisible ,goalNumber}) {
@@ -19,12 +19,12 @@ export default function GameScreen({ name, guess,onEndGame, modalVisible ,goalNu
     evaluateGuess();
   },[guess]);
 
-  function giveHint(){
-    if (guess < goalNumber){
-      hint = "higher";
-    }else if(guess > goalNumber){
-      hint = "lower";
-    }
+
+  let hint = '';
+  if (guess < goalNumber) {
+    hint = "higher";
+  } else if (guess > goalNumber) {
+    hint = "lower";
   }
 
 // let hint = guess < goalNumber ? 'higher' : 'lower';
@@ -41,12 +41,12 @@ export default function GameScreen({ name, guess,onEndGame, modalVisible ,goalNu
         <Card style={styles.card}>
           {isCorrectGuess ? (
             <>
-              <Text>Congratulations {name}, you have guessed the number correctly!</Text>
-              <Button title="Thank you" onPress={() => onEndGame(true)} />
+              <Text>Congrats {name}! You won!</Text>
+              <Button title="Thank you!" onPress={() => onEndGame(true)} />
             </>
           ) : (
             <>
-              <Text>Hello {name}, you have chosen {guess}. That's not my number! Guess {hint}! You have {chanceNumber} attempts left!</Text>
+              <Text>Hello {name}, You have chosen {guess}. That's not my number! Guess {hint}! You have {chanceNumber} attempts left!</Text>
               <Button title='I am done' onPress={() => onEndGame(true)} />
               <Button title="Let me Guess Again" onPress={() => {/* back to the start screen and keep shown the pre guess number*/}} />
             </>
