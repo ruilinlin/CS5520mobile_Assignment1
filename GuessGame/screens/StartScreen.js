@@ -3,7 +3,7 @@ import { Button, SafeAreaView, StyleSheet, Text, View,CheckBox  } from 'react-na
 import Header from "../component/Header";
 import Card from "../component/Card";
 import Color from "../component/Color"
-import Button from '../component/Button';
+import CustomButton from '../component/Button';
 import Input from '../component/Input';
 
 export default function StartScreen(onStart) {
@@ -52,13 +52,13 @@ export default function StartScreen(onStart) {
 
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
-        <Button title="Reset" onPress={() => {
+        <CustomButton title="Reset" onPress={() => {
           setName("");
           setNumber("");
           setCheckSelected(false);
           setError('');
         }}/>
-        <Button title="Confirm" onPress={handleConfirm} disabled={!isCheckSelected} />
+        <CustomButton title="Confirm" onPress={handleConfirm} disabled={!isCheckSelected} />
       </Card>
     </SafeAreaView>
   );

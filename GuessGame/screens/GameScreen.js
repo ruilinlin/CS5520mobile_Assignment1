@@ -1,6 +1,7 @@
 import React, { useState ,useEffect} from 'react';
 import { View, Text, StyleSheet, Button, Modal } from 'react-native';
 import Card from '../components/Card';
+import CustomButton from '../component/Button';
 
 export default function GameScreen({ name, guess,attemptsLeft,onEndGame,onNewGuess, modalVisible ,goalNumber}) {
   const [isCorrectGuess, setIsCorrectGuess] = useState(false);
@@ -21,13 +22,13 @@ export default function GameScreen({ name, guess,attemptsLeft,onEndGame,onNewGue
           {isCorrectGuess ? (
             <>
               <Text>Congrats {name}! You won!</Text>
-              <Button title="Thank you!" onPress={() => onEndGame(true)} />
+              <CustomButton title="Thank you!" onPress={() => onEndGame(true)} />
             </>
           ) : (
             <>
               <Text>Hello {name}, You have chosen {guess}. That's not my number! Guess {hint}! You have {chanceNumber} attempts left!</Text>
-              <Button title='I am done' onPress={() => onEndGame(true)} />
-              <Button 
+              <CustomButton title='I am done' onPress={() => onEndGame(true)} />
+              <CustomButton 
               title="Let me Guess Again" 
               onPress={() => {onNewGuess}} 
               disabled={attemptsLeft <= 1}
