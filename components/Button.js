@@ -1,9 +1,15 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-const CustomButton = ({ title, onPress, style }) => {
+const CustomButton = ({ title, onPress, disabled, style }) => {
+  const buttonStyle = disabled ? styles.buttonDisabled : styles.button;
+
   return (
-    <TouchableOpacity onPress={onPress} style={{ ...styles.button, ...style }}>
+    <TouchableOpacity
+      onPress={onPress}
+      disabled={disabled}
+      style={[buttonStyle, style]} // Combine button style with custom style
+    >
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );
@@ -11,14 +17,19 @@ const CustomButton = ({ title, onPress, style }) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#6200ee',
     padding: 10,
-    borderRadius: 5,
     alignItems: 'center',
+    backgroundColor: 'purple', 
+    borderRadius: 5,
+  },
+  buttonDisabled: {
+    padding: 10,
+    alignItems: 'center',
+    backgroundColor: 'grey', 
   },
   buttonText: {
-    color: 'white',
-    fontSize: 16,
+    color: 'white', 
+    fontSize: 16, 
   },
 });
 
