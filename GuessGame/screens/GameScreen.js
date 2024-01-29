@@ -2,7 +2,7 @@ import React, { useState ,useEffect} from 'react';
 import { View, Text, StyleSheet, Button, Modal } from 'react-native';
 import Card from './components/Card';
 
-export default function GameScreen({ name, guess,onEndGame, modalVisible ,goalNumber}) {
+export default function GameScreen({ name, guess,onEndGame,onNewGuess, modalVisible ,goalNumber}) {
   const [isCorrectGuess, setIsCorrectGuess] = useState(false);
   const [chanceNumber,setChanceNumber] = useState(2);
 

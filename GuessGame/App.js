@@ -8,6 +8,7 @@ export default function App() {
 
   // 'start', 'game', 'final'
   const [currentScreen, setCurrentScreen] = useState('start'); 
+  const [isGameModalVisible, setGameModalVisible] = useState(false);
 
   // default setting of this game
   const [userName, setUserName] = useState('');
@@ -21,51 +22,57 @@ export default function App() {
 
 
 
-const handleStart = (name, guess) => {
-  setUserName(name);
-  setUserGuess(parseInt(guess));
-  setCurrentScreen('game');
-};
+  const handleStart = (name, guess) => {
+    setUserName(name);
+    setUserGuess(parseInt(guess));
+    setGameModalVisible(true);
+  };
 
-const handleGame = (userWon) => {
-  if (userWon || attemptsLeft <= 0) {
-    setModalVisible(false); // Hide the game screen
-    setCurrentScreen('final'); // Navigate to final screen
-  } else {
-    setUserGuess(null); // Reset guess for another attempt
-    setAttemptsLeft(attemptsLeft - 1);
-  }
-};
+  const handleGameEnd = (userWon) => {
+    setWin(userWon);
+    setGameOver(true);    
+    setGameModalVisible(false); 
+    setCurrentScreen('final'); 
+  };
 
-const handleRestart = () => {
-  setCurrentScreen('start');
-  setUserName('');
-  setUserGuess(null);
-  setGameOver(false);
-  setWin(false);
-  setAttemptsLeft(3);
-};
+  const handleNewGuess = () => {
+    if (attemptsLeft > 1) {
+      setAttemptsLeft(attemptsLeft - 1);
+      setUserGuess(null);
+      setGameModalVisible(true);
+    } else {
+      setGameOver(true);
+      setCurrentScreen('final');
+    }
+  };
 
-
-return (
-  <View style={{ flex: 1 }}>
-    {currentScreen === 'start' && <StartScreen onStart={handleStart} />}
-    {currentScreen === 'game' && (
-      <GameScreen
-        userName={userName}
-        userGuess={userGuess}
-        onGameUpdate={handleGame}
-        gameOver={gameOver}
-        win={win}
-        attemptsLeft={attemptsLeft}
-        goalNumber={goalNumber}
-      />
-    )}
-    {currentScreen === 'final' && (
-      <FinalScreen onRestart={handleRestart} win={win} goalNumber={goalNumber} />
-    )}
-  </View>
-);
+  const handleRestart = () => {
+    setCurrentScreen('start');
+    setUserName('');
+    setUserGuess(null);
+    setGameOver(false);
+    setWin(false);
+    setAttemptsLeft(3);
+    setGameModalVisible(false);
+  };
 
 
+  return (
+    <View style={{ flex: 1 }}>
+      {currentScreen === 'start' && <StartScreen onStart={handleStart} />}
+      {isGameModalVisible && (
+        <GameScreen
+          userName={userName}
+          userGuess={userGuess}
+          onEndGame={handleGameEnd}
+          onNewGuess={handleNewGuess}
+          modalVisible={isGameModalVisible}
+          goalNumber={goalNumber}
+        />
+      )}
+      {currentScreen === 'final' && (
+        <FinalScreen onRestart={handleRestart} userWon={win} goalNumber={goalNumber} />
+      )}
+    </View>
+  );
 }
