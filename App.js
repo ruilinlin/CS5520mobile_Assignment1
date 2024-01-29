@@ -14,7 +14,7 @@ export default function App() {
   const [userName, setUserName] = useState('');
   const [userGuess, setUserGuess] = useState(null);
   const goalNumber = Math.floor(Math.random() * 10) + 1020;
-  const [attemptsLeft, setAttemptsLeft] = useState(3); 
+  const [attemptsLeft, setAttemptsLeft] = useState(2); 
   
   //trace game state
   const [gameOver, setGameOver] = useState(false);
@@ -24,10 +24,12 @@ export default function App() {
     return parseInt(guess) === goalNumber;
   };
 
+
   const handleStart = (name, guess) => {
     setUserName(name);
     setUserGuess(parseInt(guess));
     setGameModalVisible(true);
+    setCurrentScreen('game'); 
   };
 
   const handleGameEnd = (winStatus) => {
@@ -39,21 +41,21 @@ export default function App() {
   };
 
   const handleNewGuess = () => {
-    if (attemptsLeft > 1) {
-      setAttemptsLeft(attemptsLeft - 1);
+    if (attemptsLeft > 0) {
+      setAttemptsLeft(attemptsLeft-1);
       setUserGuess(null);
-      setGameModalVisible(true);
+      setGameModalVisible(false); 
+      setCurrentScreen('start');
     } else {
       setGameOver(true);
       setCurrentScreen('final');
+      setGameModalVisible(false); 
     }
   };
 
   const handleRestart = () => {
     setCurrentScreen('start');
     setUserName('');
-    setName('')
-    setNumber('');
     setUserGuess(null);
     setGameOver(false);
     setWin(false);
