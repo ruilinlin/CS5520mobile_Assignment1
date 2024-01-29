@@ -1,45 +1,37 @@
 import React, { useState ,useEffect} from 'react';
 import { View, Text, StyleSheet, Button, Modal } from 'react-native';
-
 import Card from '../components/Card';
 import CustomButton from '../components/Button';
 
-export default function GameScreen({ name, guess,attemptsLeft,onEndGame,onNewGuess, modalVisible ,goalNumber}) {
+export default function GameScreen({ userName, userGuess,attemptsLeft,onEndGame,onNewGuess, modalVisible ,goalNumber}) {
   const [isCorrectGuess, setIsCorrectGuess] = useState(false);
 
   useEffect(() => {
-    if (parseInt(guess) === goalNumber) {
+    if (parseInt(userGuess) === goalNumber) {
       setIsCorrectGuess(true);
     }
-  }, [guess, goalNumber]);
+  }, [userGuess, goalNumber]);
 
-  let hint = guess < goalNumber ? 'higher' : 'lower';
+  let hint = userGuess < goalNumber ? 'higher' : 'lower';
 
 
   return (
     <Modal visible={modalVisible} animationType="slide">
       <View style={styles.screen}>
-
         <Card style={styles.card}>
-
           {isCorrectGuess ? (
             <>
-              <Text>Congrats {name}! You won!</Text>
+              <Text>Congrats {userName}! You won!</Text>
               <CustomButton title="Thank you!" onPress={() => onEndGame(true)} />
             </>
           ) : (
             <>
-              <Text>Hello {name}, You have chosen {guess}. That's not my number! Guess {hint}! You have {attemptsLeft} attempts left!</Text>
-              <CustomButton title='I am done' onPress={() => onEndGame(true)} 
-                      style = {styles.Button}
-                      disabled={false}/>
-
+              <Text>Hello {userName}, You have chosen {userGuess}. That's not my number! Guess {hint}! You have {attemptsLeft - 1} attempts left!</Text>
+              <CustomButton title='I am done' onPress={() => onEndGame(true)} />
               <CustomButton 
-              title="Let me Guess Again" 
-              onPress={() => {onNewGuess}} 
-              disabled={attemptsLeft <= 1}
-
-              style = {styles.Button}
+                title="Let me Guess Again" 
+                onPress={onNewGuess} 
+                disabled={attemptsLeft <= 1}
               />
             </>
           )}
@@ -54,15 +46,11 @@ export default function GameScreen({ name, guess,attemptsLeft,onEndGame,onNewGue
     screen: { 
       flex: 1, 
       alignItems: 'center', 
-
-      justifyContent: 'center',
-      background: '#f6f6f6',
+      justifyContent: 'center'
     },
-    
-
-    Button: {
-      flexDirection: 'column', 
-      justifyContent: 'space-evenly', 
-  },
-  
+    card: { 
+      padding: 20, 
+      borderRadius: 10,
+      alignItems: 'center'
+    }
   });
