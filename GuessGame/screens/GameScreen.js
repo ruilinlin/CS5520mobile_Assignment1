@@ -1,7 +1,7 @@
 import React, { useState ,useEffect} from 'react';
 import { View, Text, StyleSheet, Button, Modal } from 'react-native';
 import Card from '../components/Card';
-import CustomButton from '../component/Button';
+import CustomButton from '../components/Button';
 
 export default function GameScreen({ name, guess,attemptsLeft,onEndGame,onNewGuess, modalVisible ,goalNumber}) {
   const [isCorrectGuess, setIsCorrectGuess] = useState(false);

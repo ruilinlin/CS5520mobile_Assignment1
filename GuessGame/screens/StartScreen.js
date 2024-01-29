@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { Button, SafeAreaView, StyleSheet, Text, View,CheckBox  } from 'react-native';
-import Header from "../component/Header";
-import Card from "../component/Card";
-import Color from "../component/Color"
-import CustomButton from '../component/Button';
-import Input from '../component/Input';
+import Header from "../components/Header";
+import Card from "../components/Card";
+import Color from "../components/Color"
+import CustomButton from '../components/Button';
+import Input from '../components/Input';
 
 export default function StartScreen(onStart) {
 
