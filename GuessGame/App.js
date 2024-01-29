@@ -20,7 +20,9 @@ export default function App() {
   const [gameOver, setGameOver] = useState(false);
   const [win, setWin] = useState(false);
 
-
+  const checkWin = (guess) => {
+    return parseInt(guess) === goalNumber;
+  };
 
   const handleStart = (name, guess) => {
     setUserName(name);
@@ -29,6 +31,7 @@ export default function App() {
   };
 
   const handleGameEnd = (userWon) => {
+    const userWon = checkWin(userGuess);    
     setWin(userWon);
     setGameOver(true);    
     setGameModalVisible(false); 
