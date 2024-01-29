@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { Button, SafeAreaView, StyleSheet, Text, View,CheckBox  } from 'react-native';
-import Header from "./Header";
-import Card from "./Card";
+import Header from "../component/Header";
+import Card from "../component/Card";
+import Color from "../component/Color"
+import Button from '../component/Button';
+import Input from '../component/Input';
 
-export default function StartScreen() {
-  const pageOne = "Guess My Number";
-  const pageThree = "Game is Over";
-  
+export default function StartScreen(onStart) {
+
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [isCheckSelected, setCheckSelected] = useState(false);
@@ -33,32 +34,32 @@ export default function StartScreen() {
     
   return (
     <SafeAreaView style={styles.screen}>
-      <view style = {styles.topView}>
-        <header title ="Guess My Number"/>
-      </view>
+      <Header title="Guess My Number"/>
 
-      <view style = {styles.bottonView}>
-        <card style = {styles.card}>
-        <Text>Name</Text>
-        <Input value={name} onChangeText = {setName} />
+      <Card style={styles.card}>
+        <Text style={styles.label}>Name</Text>
+        <Input value={name} onChangeText={setName} placeholder="Your name"/>
 
-        <Text>Enter a Number</Text>
-        <Input value={number} onChangeText = {setNumber} keyboardType = "numeric"/>
+        <Text style={styles.label}>Enter a Number</Text>
+        <Input value={number} onChangeText={setNumber} keyboardType="numeric" placeholder="1020 - 1029"/>
 
-        <CheckBox value = {isCheckSelected} onChangeText = {setCheckSelected}/>
+        <CheckBox
+          value={isCheckSelected}
+          onValueChange={setCheckSelected}
+          style={styles.checkbox}
+        />
         <Text>I am not a robot</Text>
-        {error ? <Text style={styles.errorText}>{error}</Text> : null}       
 
-        <Button title = "Reset" onPress={function(){
+        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
+        <Button title="Reset" onPress={() => {
           setName("");
           setNumber("");
           setCheckSelected(false);
           setError('');
         }}/>
-        <Button title = "Confirm" onPress={handleConfirm} disabled={!isCheckSelected} />
-
-        </card>
-      </view>
+        <Button title="Confirm" onPress={handleConfirm} disabled={!isCheckSelected} />
+      </Card>
     </SafeAreaView>
   );
 }
@@ -71,18 +72,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  topView:{
-    flex:1,
-    alignItems: "center",
+  label: {
+    fontSize: 16,
+    color: Color.primary, 
   },
-
-  bottonView :{
-    flex:5,
-    backgroundColor: "grey"
-  },
+  checkbox: {
   
-  card: { 
-    padding: 20,
-    borderRadius: 10 
+  },
+  errorText: {
+    color: 'white',
+   
   }
+
 });

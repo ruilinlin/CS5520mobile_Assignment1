@@ -30,9 +30,9 @@ export default function App() {
     setGameModalVisible(true);
   };
 
-  const handleGameEnd = (userWon) => {
+  const handleGameEnd = (winStatus) => {
     const userWon = checkWin(userGuess);    
-    setWin(userWon);
+    setWin(winStatus);
     setGameOver(true);    
     setGameModalVisible(false); 
     setCurrentScreen('final'); 

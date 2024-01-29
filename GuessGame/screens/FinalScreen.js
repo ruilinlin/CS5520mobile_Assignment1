@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, Image } from 'react-native';
-import Card from './components/Card';
+import Card from '../components/Card';
 
 export default function FinalScreen({ userWon, onRestartGame, goalNumber }) {
   const imageUrl = userWon ? `https://picsum.photos/id/${goalNumber}/100/100` : require('./img/Sad-Face-Emoji.png');
