@@ -49,6 +49,8 @@ export default function App() {
   const handleRestart = () => {
     setCurrentScreen('start');
     setUserName('');
+    setName('')
+    setNumber('');
     setUserGuess(null);
     setGameOver(false);
     setWin(false);
@@ -64,6 +66,7 @@ export default function App() {
         <GameScreen
           userName={userName}
           userGuess={userGuess}
+          attemptsLeft={attemptsLeft}
           onEndGame={handleGameEnd}
           onNewGuess={handleNewGuess}
           modalVisible={isGameModalVisible}
