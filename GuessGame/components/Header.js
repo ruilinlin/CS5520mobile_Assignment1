@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { Header } from "react-native/Libraries/NewAppScreen";
 
 const header = ({title}) =>(
   <View style={styles.headerContainer}>
