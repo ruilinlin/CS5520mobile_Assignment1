@@ -4,35 +4,14 @@ import Card from './components/Card';
 
 export default function GameScreen({ name, guess,onEndGame,onNewGuess, modalVisible ,goalNumber}) {
   const [isCorrectGuess, setIsCorrectGuess] = useState(false);
-  const [chanceNumber,setChanceNumber] = useState(2);
 
-  const evaluateGuess = () => {
-    if (guess === goalNumber) {
+  useEffect(() => {
+    if (parseInt(guess) === goalNumber) {
       setIsCorrectGuess(true);
-    } else {
-      setChanceNumber(prevChances => prevChances - 1);
     }
-  };
+  }, [guess, goalNumber]);
 
-//keep track the gues number change
-  React.useEffect(() =>{
-    evaluateGuess();
-  },[guess]);
-
-
-  let hint = '';
-  if (guess < goalNumber) {
-    hint = "higher";
-  } else if (guess > goalNumber) {
-    hint = "lower";
-  }
-
-// let hint = guess < goalNumber ? 'higher' : 'lower';
-/*
-  function endGame(){
-    const onEndGame = true;
-  }
-*/
+  let hint = guess < goalNumber ? 'higher' : 'lower';
 
 
   return (
