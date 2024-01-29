@@ -1,12 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, SafeAreaView, StyleSheet, Text, View,CheckBox  } from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import Checkbox from 'expo-checkbox';
 import Header from "../components/Header";
 import Card from "../components/Card";
 import Color from "../components/Color"
 import CustomButton from '../components/Button';
 import Input from '../components/Input';
 
-export default function StartScreen(onStart) {
+export default function StartScreen({ onStart }) {
 
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
 
   label: {
     fontSize: 16,
-    color: Color.primary, 
+    color: "white", 
   },
   checkbox: {
   
