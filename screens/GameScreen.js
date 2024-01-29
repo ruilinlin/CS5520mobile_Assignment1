@@ -1,6 +1,6 @@
 import React, { useState ,useEffect} from 'react';
 import { View, Text, StyleSheet, Button, Modal } from 'react-native';
-import Card from '../components/Card';
+import CustomCard from '../components/Card';
 import CustomButton from '../components/Button';
 
 export default function GameScreen({ name, guess,attemptsLeft,onEndGame,onNewGuess, modalVisible ,goalNumber}) {
@@ -18,7 +18,7 @@ export default function GameScreen({ name, guess,attemptsLeft,onEndGame,onNewGue
   return (
     <Modal visible={modalVisible} animationType="slide">
       <View style={styles.screen}>
-        <Card style={styles.card}>
+        <CustomCard >
           {isCorrectGuess ? (
             <>
               <Text>Congrats {name}! You won!</Text>
@@ -27,15 +27,19 @@ export default function GameScreen({ name, guess,attemptsLeft,onEndGame,onNewGue
           ) : (
             <>
               <Text>Hello {name}, You have chosen {guess}. That's not my number! Guess {hint}! You have {attemptsLeft} attempts left!</Text>
-              <CustomButton title='I am done' onPress={() => onEndGame(true)} />
+              <CustomButton title='I am done' onPress={() => onEndGame(true)} 
+                      style = {styles.Button}
+                      disabled={false}/>
+
               <CustomButton 
               title="Let me Guess Again" 
               onPress={() => {onNewGuess}} 
               disabled={attemptsLeft <= 1}
+              style = {styles.Button}
               />
             </>
           )}
-        </Card>
+        </CustomCard>
       </View>
     </Modal>
   );
@@ -46,11 +50,14 @@ export default function GameScreen({ name, guess,attemptsLeft,onEndGame,onNewGue
     screen: { 
       flex: 1, 
       alignItems: 'center', 
-      justifyContent: 'center'
+      justifyContent: 'center',
+      background: '#f6f6f6',
     },
-    card: { 
-      padding: 20, 
-      borderRadius: 10,
-      alignItems: 'center'
-    }
+    
+
+    Button: {
+      flexDirection: 'column', 
+      justifyContent: 'space-evenly', 
+  },
+  
   });
