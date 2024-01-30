@@ -6,11 +6,12 @@ import Header from "../components/Header";
 import Card from "../components/Card";
 import CustomButton from '../components/Button';
 import Input from '../components/Input';
+import GradientBackground from '../components/Background';
 
-export default function StartScreen({ onStart , userName, userGuess}) {
+export default function StartScreen({ onStart , previousName, previousGuess}) {
 
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [name, setName] = useState(previousName);
+  const [number, setNumber] = useState(previousGuess);
   const [isCheckSelected, setCheckSelected] = useState(false);
 
   const [nameError, setNameError] = useState('');
@@ -42,7 +43,9 @@ export default function StartScreen({ onStart , userName, userGuess}) {
     onStart(name, numberVal);
   };
     
+//  console.log(userName,userGuess);
   return (
+    <GradientBackground>
     <SafeAreaView style={styles.screen}>
       <View>
       <Header title="Guess My Number"/>
@@ -53,7 +56,7 @@ export default function StartScreen({ onStart , userName, userGuess}) {
         {nameError && <Text style={styles.errorText}>{nameError}</Text>}
 
         <Text style={styles.label}>Enter a Number</Text>
-        <Input value={number} onChangeText={setNumber} keyboardType="numeric" placeholder="1020 - 1029" style={styles.input}/>
+        <Input value={number.toString()} onChangeText={setNumber} keyboardType="numeric" placeholder="1020 - 1029" style={styles.input}/>
         {numberError && <Text style={styles.errorText}>{numberError}</Text>}
 
         <View style={styles.checkboxContainer}>
@@ -80,6 +83,7 @@ export default function StartScreen({ onStart , userName, userGuess}) {
       </Card>
       </View>
     </SafeAreaView>
+    </GradientBackground>
   );
 }
 
@@ -87,7 +91,6 @@ const styles = StyleSheet.create({
   screen: { 
     flex: 1, 
     padding: 20,
-    backgroundColor: 'white',
     justifyContent: 'center',
   },
   
