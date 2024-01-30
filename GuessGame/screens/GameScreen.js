@@ -3,16 +3,16 @@ import { View, Text, StyleSheet, Button, Modal } from 'react-native';
 import Card from '../components/Card';
 import CustomButton from '../components/Button';
 
-export default function GameScreen({ name, guess,attemptsLeft,onEndGame,onNewGuess, modalVisible ,goalNumber}) {
+export default function GameScreen({ userName, userGuess,attemptsLeft,onEndGame,onNewGuess, modalVisible ,goalNumber,previousInput}) {
   const [isCorrectGuess, setIsCorrectGuess] = useState(false);
 
   useEffect(() => {
-    if (parseInt(guess) === goalNumber) {
+    if (parseInt(userGuess) === goalNumber) {
       setIsCorrectGuess(true);
     }
-  }, [guess, goalNumber]);
+  }, [userGuess, goalNumber]);
 
-  let hint = guess < goalNumber ? 'higher' : 'lower';
+  let hint = userGuess < goalNumber ? 'higher' : 'lower';
 
 
   return (
@@ -21,17 +21,17 @@ export default function GameScreen({ name, guess,attemptsLeft,onEndGame,onNewGue
         <Card style={styles.card}>
           {isCorrectGuess ? (
             <>
-              <Text>Congrats {name}! You won!</Text>
+              <Text>Congrats {userName}! You won!</Text>
               <CustomButton title="Thank you!" onPress={() => onEndGame(true)} />
             </>
           ) : (
             <>
-              <Text>Hello {name}, You have chosen {guess}. That's not my number! Guess {hint}! You have {chanceNumber} attempts left!</Text>
+              <Text>Hello {userName}, You have chosen {userGuess}. That's not my number! Guess {hint}! You have {attemptsLeft - 1} attempts left!</Text>
               <CustomButton title='I am done' onPress={() => onEndGame(true)} />
               <CustomButton 
-              title="Let me Guess Again" 
-              onPress={() => {onNewGuess}} 
-              disabled={attemptsLeft <= 1}
+                title="Let me Guess Again" 
+                onPress={() => onNewGuess(previousInput.name, previousInput.guess)} 
+                disabled={attemptsLeft <= 1}
               />
             </>
           )}
@@ -49,8 +49,7 @@ export default function GameScreen({ name, guess,attemptsLeft,onEndGame,onNewGue
       justifyContent: 'center'
     },
     card: { 
-      padding: 20, 
-      borderRadius: 10,
+      margin:20,
       alignItems: 'center'
     }
   });
