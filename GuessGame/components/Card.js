@@ -1,10 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-const Card = ({ children, style }) => {
-  return <View style={{ ...styles.card, ...style }}>
-    {children}
-    </View>;
+const CustomCard = ({ children, style }) => {
+  return <View style={{ ...styles.card, ...style }}>{children}</View>;
 };
 
 const styles = StyleSheet.create({
@@ -20,4 +18,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Card;
+export default CustomCard;
