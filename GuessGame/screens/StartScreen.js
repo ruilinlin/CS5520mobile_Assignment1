@@ -69,16 +69,16 @@ export default function StartScreen({ onStart , previousName, previousGuess}) {
         
 
         
-
+        <View style = {styles.Button}>
           <CustomButton title="Reset" onPress={() => {
             setName("");
             setNumber("");
             setCheckSelected(false);
           }}
-          style = {styles.Button}
-          disabled={false}/>
-          <CustomButton title="Confirm" onPress={handleConfirm} disabled={!isCheckSelected} style={styles.Button}/>
 
+          disabled={false}/>
+          <CustomButton title="Confirm" onPress={handleConfirm} disabled={!isCheckSelected} />
+          </View>
 
       </Card>
       </View>
