@@ -7,14 +7,15 @@ import Card from "../components/Card";
 import CustomButton from '../components/Button';
 import Input from '../components/Input';
 
-export default function StartScreen({ onStart }) {
+export default function StartScreen({ onStart , userName, userGuess}) {
 
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
   const [isCheckSelected, setCheckSelected] = useState(false);
 
   const [nameError, setNameError] = useState('');
   const [numberError, setNumberError] = useState('');
+
 
   const handleConfirm = () => {
     setNameError('');
@@ -85,6 +86,7 @@ export default function StartScreen({ onStart }) {
 const styles = StyleSheet.create({
   screen: { 
     flex: 1, 
+    padding: 20,
     backgroundColor: 'white',
     justifyContent: 'center',
   },
