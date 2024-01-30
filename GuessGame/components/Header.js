@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const header = ({title}) =>(
+const Header = ({title}) =>(
   <View style={styles.headerContainer}>
     <Text style={styles.headerTitle}>{title}</Text>
   </View>
